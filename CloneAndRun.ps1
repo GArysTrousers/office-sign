@@ -1,7 +1,4 @@
-cd ..
-Remove-Item office-sign -Recurse
-git clone https://github.com/GArysTrousers/office-sign.git
-cd ./office-sign
+git fetch origin master
 npm i
 npm run build
 node ./build
