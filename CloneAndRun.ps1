@@ -1,4 +1,7 @@
-git fetch origin master
+git pull origin master
 npm i
 npm run build
-Start-Process powershell -ArgumentList "-File .\Start.ps1"
+$dir = Get-Location
+Start-Process powershell -ArgumentList "-File $dir\RunServer.ps1"
+Start-Sleep 3
+Start http://localhost:3000
