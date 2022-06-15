@@ -30,7 +30,7 @@
       title: "ICT is Closed",
       body: "Check back in:",
       bg: "bg-red-700",
-      onStart: () => {addTime(3)},
+      onStart: () => {addTime(60 * 30)},
       onTimeout: () => {changeMessage(4)},
       onEnd: () => {},
     },

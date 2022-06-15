@@ -1,4 +1,4 @@
 git fetch origin master
 npm i
 npm run build
-node ./build
+Start-Process powershell -ArgumentList "-File .\Start.ps1"
