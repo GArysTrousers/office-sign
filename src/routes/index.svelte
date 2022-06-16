@@ -1,6 +1,5 @@
 <script lang="ts">
   import type { Message } from "src/lib/interfaces";
-
   import { onMount } from "svelte";
 
   export let messages: Message[] = [
@@ -86,29 +85,16 @@
 
   function onKeyDown(e: KeyboardEvent) {
     let num = e.keyCode - 48;
-
     if (num >= 0 && num <= 9) {
-      if (num < messages.length) {
-        changeMessage(num);
-      }
+      if (num < messages.length) changeMessage(num);
       return;
     }
-
     if (e.key == " ") addTime(600);
     else if (e.key == "Backspace") stopTimer();
   }
 </script>
 
 <svelte:window on:keydown={onKeyDown} />
-
-{#if false}
-  <div class="fixed flex flex-row gap-5">
-    <button on:click={() => (selected = messages[0])}>Open</button>
-    <button on:click={() => (selected = messages[1])}>Close</button>
-    <button on:click={() => addTime(600)}>+Time</button>
-    <button on:click={() => stopTimer()}>ClearTime</button>
-  </div>
-{/if}
 
 <main
   class="{selected.bg} text-white flex flex-col justify-center items-center text-center whitespace-pre-wrap"
