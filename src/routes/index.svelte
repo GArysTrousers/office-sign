@@ -1,9 +1,11 @@
 <script lang="ts">
+  import type { Message } from "src/lib/interfaces";
+
   import { onMount } from "svelte";
 
-  let messages = [
+  export let messages: Message[] = [
     {
-      title: "ICT is Closed for the day",
+      title: "ICT is Closed\nfor the day",
       body: "",
       bg: "bg-black",
       onStart: () => {},
@@ -12,7 +14,7 @@
     },
     {
       title: "ICT is Open",
-      body: "",
+      body: "Turn handle &#8634;",
       bg: "bg-green-700",
       onStart: () => {},
       onTimeout: () => {},
@@ -20,7 +22,7 @@
     },
     {
       title: "ICT is Closed",
-      body: "Check back later",
+      body: "Check back later \n-or-\n see Junior ICT",
       bg: "bg-red-700",
       onStart: () => {},
       onTimeout: () => {},
@@ -30,8 +32,12 @@
       title: "ICT is Closed",
       body: "Check back in:",
       bg: "bg-red-700",
-      onStart: () => {addTime(60 * 30)},
-      onTimeout: () => {changeMessage(4)},
+      onStart: () => {
+        addTime(60 * 30);
+      },
+      onTimeout: () => {
+        changeMessage(4);
+      },
       onEnd: () => {},
     },
     {
@@ -43,14 +49,15 @@
       onEnd: () => {},
     },
   ];
+
   let selected = messages[1];
   let timer: any;
   let timeLeft: number = 0;
 
   onMount(async () => {});
 
-  function changeMessage(index:number) {
-    stopTimer()
+  function changeMessage(index: number) {
+    stopTimer();
     selected.onEnd();
     selected = messages[index];
     selected.onStart();
@@ -94,18 +101,21 @@
 
 <svelte:window on:keydown={onKeyDown} />
 
-<div class="fixed flex flex-row gap-5 hidden">
-  <button on:click={() => (selected = messages[0])}>Open</button>
-  <button on:click={() => (selected = messages[1])}>Close</button>
-  <button on:click={() => addTime(600)}>+Time</button>
-  <button on:click={() => stopTimer()}>ClearTime</button>
-</div>
+{#if false}
+  <div class="fixed flex flex-row gap-5">
+    <button on:click={() => (selected = messages[0])}>Open</button>
+    <button on:click={() => (selected = messages[1])}>Close</button>
+    <button on:click={() => addTime(600)}>+Time</button>
+    <button on:click={() => stopTimer()}>ClearTime</button>
+  </div>
+{/if}
+
 <main
-  class="{selected.bg} text-white flex flex-col justify-center items-center text-center"
+  class="{selected.bg} text-white flex flex-col justify-center items-center text-center whitespace-pre-wrap"
 >
   <div class="flex-col justify-center items-center">
-    <h1 class="text-9xl mb-6">{selected.title}</h1>
-    <div class="text-4xl">{selected.body}</div>
+    <h1 class="title mb-6">{@html selected.title}</h1>
+    <div class="body">{@html selected.body}</div>
     {#if timeLeft > 0}
       <div class="text-9xl">{convertToTime(timeLeft)}</div>
     {/if}
@@ -115,5 +125,13 @@
 <style>
   main {
     height: 100vh;
+  }
+
+  .title {
+    font-size: 13vw;
+  }
+
+  .body {
+    font-size: 5vw;
   }
 </style>
