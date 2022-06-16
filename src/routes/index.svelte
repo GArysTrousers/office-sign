@@ -31,12 +31,8 @@
       title: "ICT is Closed",
       body: "Check back in:",
       bg: "bg-red-700",
-      onStart: () => {
-        addTime(60 * 30);
-      },
-      onTimeout: () => {
-        changeMessage(4);
-      },
+      onStart: () => addTime(60 * 30),
+      onTimeout: () => changeMessage(4),
       onEnd: () => {},
     },
     {
@@ -96,9 +92,7 @@
 
 <svelte:window on:keydown={onKeyDown} />
 
-<main
-  class="{selected.bg} text-white flex flex-col justify-center items-center text-center whitespace-pre-wrap"
->
+<main class="{selected.bg} ">
   <div class="flex-col justify-center items-center">
     <h1 class="title mb-6">{@html selected.title}</h1>
     <div class="body">{@html selected.body}</div>
@@ -111,6 +105,7 @@
 <style>
   main {
     height: 100vh;
+    @apply text-white flex flex-col justify-center items-center text-center whitespace-pre-wrap;
   }
 
   .title {
